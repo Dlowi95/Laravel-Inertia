@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import CustomCard from '@/components/custom-card';
 import CustomNotice from '@/components/custom-notice';
 import CustomPageHeading from '@/components/custom-page-heading';
@@ -32,6 +33,9 @@ const pageConfig: PageConfig={
 }
 //---------------------------------------------------------------------------------------
 export default function UserCatalogueSave() {
+
+    const buttonAction = useRef("") 
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={pageConfig.heading} />
@@ -49,6 +53,8 @@ export default function UserCatalogueSave() {
                             <Form
                                 action={user_catalogue.store()}
                                 method="post"
+                                resetOnSuccess={['name', 'canonical', 'description']}
+                                transform={(data) => ({...data, save_and_redirect: buttonAction.current})}
                             >
                                 {({ processing, errors }) => (
                                     <>
@@ -103,14 +109,28 @@ export default function UserCatalogueSave() {
                                             <div className="mt-[20px] flex justify-end">
                                                 <Button 
                                                     type="submit"
-                                                    className="bg-[#1a7bb9] rounded-[5px] font-light cursor-pointer"
+                                                    className="bg-blue-500 rounded-[5px] font-light cursor-pointer mr-5"
                                                     tabIndex={4}
                                                     disabled={processing}
+                                                    onClick={() => (buttonAction.current = '')}
                                                 >
                                                     {processing && (
                                                         <LoaderCircle className="h-4 w-4 animate-spin"/>
                                                     )}
                                                     Lưu thông tin
+                                                </Button>
+                                                <Button 
+                                                    type="submit"
+                                                    className="rounded-[5px] font-light cursor-pointer bg-red-500"
+                                                    tabIndex={4}
+                                                    disabled={processing}
+                                                    onClick={() => (buttonAction.current = 'redirect')}
+
+                                                >
+                                                    {processing && (
+                                                        <LoaderCircle className="h-4 w-4 animate-spin"/>
+                                                    )}
+                                                    Lưu và đóng
                                                 </Button>
                                             </div>
                                         </CustomCard>

@@ -19,8 +19,8 @@ class BaseController extends Controller{
 
     public function handleAction($request, $response, string $redirectRoute = ''): RedirectResponse{
         if($response){
-            if($request->input(CommonEnum::SAVE_AND_REDIRECT)){
-                return redirect()->intended(route($redirectRoute, absolute: false));
+            if($request->input(CommonEnum::SAVE_AND_REDIRECT) && $request->input(CommonEnum::SAVE_AND_REDIRECT) === CommonEnum::REDIRECT){
+                return to_route($redirectRoute);
             }
             return back();
         }
