@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Repositories;
+use Illuminate\Database\Eloquent\Model;
+use Mockery\Undefined;
 
 class BaseRepo
 {
@@ -21,16 +23,17 @@ class BaseRepo
         return $this->model->getRelationable();
     }
 
-    public function create(array $data)
-    {
-        return $this->model->create($data);
+    public function create(array $payload = []): Model | null {
+        return $this->model->create($payload)->fresh();
     }
 
-    public function update(int $id, array $data)
-    {
-        $model = $this->model->findOrFail($id);
-        $model->update($data);
-
-        return $model->fresh();
+    public function update(int $id, array $payload = []): Model {
+        $model = $this->findById($id);
+        $model->fill($payload);
+        $model->save();
+        return $model;
+    }
+    public function findById(int $id, array $with = [], array $column = ['*']){
+        return $this->model->select($column)->with($with)->findOrFail($id);
     }
 }

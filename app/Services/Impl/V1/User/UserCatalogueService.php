@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserCatalogueService extends BaseService implements UserCatalogueServiceInterface{
     protected $repository;
+    protected $with = ['users', 'creators'];
 
     public function __construct(
         UserCatalogueRepo $repository

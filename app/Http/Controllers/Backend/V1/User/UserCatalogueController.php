@@ -30,9 +30,12 @@ class UserCatalogueController extends BaseController
         return Inertia::render('user/user_catalogue/save');
     }
 
-    public function edit(): Response
+    public function edit($id): Response
     {
-        return Inertia::render('user/user_catalogue/save');
+        $record = $this->service->findById($id);
+        return Inertia::render('user/user_catalogue/save', compact(
+            'record'
+        ));
     }
 
     public function store(StoreRequest $request): RedirectResponse

@@ -5,6 +5,7 @@ namespace App\Http\Requests\User\UserCatalogue;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class StoreRequest extends FormRequest
 {
@@ -42,5 +43,11 @@ class StoreRequest extends FormRequest
             'name' => Lang::get('messages.user_catalogue.name'),
             'canonical' => Lang::get('messages.user_catalogue.canonical')
         ];
+    }
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'canonical' => Str::slug($this->input('canonical'))
+        ]);
     }
 }
