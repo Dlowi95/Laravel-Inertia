@@ -9,6 +9,7 @@ use App\Services\Interfaces\User\UserCatalogueServiceInterface as UserCatalogueS
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Http\Resources\User\UserCatalogueResource;
 
 class UserCatalogueController extends BaseController
 {
@@ -32,10 +33,10 @@ class UserCatalogueController extends BaseController
 
     public function edit($id): Response
     {
-        $record = $this->service->findById($id);
-        return Inertia::render('user/user_catalogue/save', compact(
-            'record'
-        ));
+        $record = new UserCatalogueResource($this->service->findById($id));
+        return Inertia::render('user/user_catalogue/save', [
+            'record' => $record
+        ]);
     }
 
     public function store(StoreRequest $request): RedirectResponse
@@ -49,7 +50,6 @@ class UserCatalogueController extends BaseController
     public function update(UpdateRequest $request, $id): RedirectResponse
     {
         $response = $this->service->save($request, $id);
-
-        return $this->handleAction($request, $response, redirectRoute: 'user_catalogue.index');
+        return $this->handleAction($request, $response, redirectRoute: 'user_catalogue.index', editRoute: 'user_catalogue.edit');
     }
 }

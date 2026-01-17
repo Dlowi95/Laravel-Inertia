@@ -17,10 +17,13 @@ class BaseController extends Controller{
         $this->service = $service;
     }
 
-    public function handleAction($request, $response, string $redirectRoute = ''): RedirectResponse{
+    public function handleAction($request, $response, string $redirectRoute = '', ?string $editRoute = ''): RedirectResponse{
         if($response){
             if($request->input(CommonEnum::SAVE_AND_REDIRECT) && $request->input(CommonEnum::SAVE_AND_REDIRECT) === CommonEnum::REDIRECT){
                 return to_route($redirectRoute);
+            }
+            if(!empty($editRoute)){
+                return to_route($editRoute, $response->id)->with('success', Lang::get('messages.save_success'));
             }
             return back();
         }

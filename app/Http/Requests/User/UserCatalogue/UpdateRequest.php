@@ -28,7 +28,7 @@ class UpdateRequest extends FormRequest
             'canonical' => [
                 "required",
                 "string",
-                Rule::unique('user_catalogue')->ignore($this->route('user_catalogue'))
+                Rule::unique('user_catalogues')->ignore($this->route('user_catalogue'))
             ],
             'description' => "sometimes|string"
         ];

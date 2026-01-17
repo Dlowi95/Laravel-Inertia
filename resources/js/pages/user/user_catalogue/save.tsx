@@ -4,7 +4,7 @@ import CustomNotice from '@/components/custom-notice';
 import CustomPageHeading from '@/components/custom-page-heading';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
-import { type BreadcrumbItem, type PageConfig } from '@/types';
+import { type IDateTime, type BreadcrumbItem, type PageConfig } from '@/types';
 import { Head, Form } from '@inertiajs/react';
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea"
@@ -32,9 +32,19 @@ const pageConfig: PageConfig={
     heading: 'Quản lý nhóm thành viên'
 }
 //---------------------------------------------------------------------------------------
-export default function UserCatalogueSave() {
+export interface UserCatalogue extends IDateTime{
+    id: number,
+    name: string,
+    canonical: string,
+    description: string
+}
+interface UserCatalogueSaveProps{
+    record?: UserCatalogue
+}
+export default function UserCatalogueSave({record}: UserCatalogueSaveProps) {
 
-    const buttonAction = useRef("") 
+    const buttonAction = useRef("")
+    const isEdit = !!record
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -51,10 +61,16 @@ export default function UserCatalogueSave() {
                         </div>
                         <div className="col-span-7">
                             <Form
-                                action={user_catalogue.store()}
+                                action={
+                                    isEdit ? user_catalogue.update(record.id) : user_catalogue.store()
+                                }
                                 method="post"
                                 resetOnSuccess={['name', 'canonical', 'description']}
-                                transform={(data) => ({...data, save_and_redirect: buttonAction.current})}
+                                transform={(data) => ({
+                                    ...data,
+                                    ...(isEdit ? {_method: 'put'} : {}),
+                                    save_and_redirect: buttonAction.current
+                                })}
                             >
                                 {({ processing, errors }) => (
                                     <>
@@ -75,6 +91,7 @@ export default function UserCatalogueSave() {
                                                         autoComplete="name"
                                                         placeholder=""
                                                         className="mb-[5px]"
+                                                        defaultValue={record?.name}
                                                     />
                                                     <InputError message={errors.name} />
                                                 </div>
@@ -89,6 +106,7 @@ export default function UserCatalogueSave() {
                                                         autoComplete="canonical"
                                                         placeholder=""
                                                         className="mb-[5px]"
+                                                        defaultValue={record?.canonical}
                                                     />
                                                     <InputError message={errors.canonical} />
                                                 </div>
@@ -103,6 +121,7 @@ export default function UserCatalogueSave() {
                                                     tabIndex={1}
                                                     autoComplete=""
                                                     placeholder=""
+                                                    defaultValue={record?.description}
                                                 />
                                             </div>
                                             

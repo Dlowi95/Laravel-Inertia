@@ -13,10 +13,15 @@ abstract class BaseService implements BaseServiceInterface
     use HasTransaction;
 
     protected $repository;
+
     protected $request;
+
     protected $modelData;
+
     protected $model;
+
     protected $result;
+
     protected $with = [];
 
     public function __construct(
@@ -58,8 +63,8 @@ abstract class BaseService implements BaseServiceInterface
     private function saveModel(?int $id = null): static
     {
         $this->model = is_null($id)
-                        ? $this->repository->update($id, $this->modelData)
-                        : $this->repository->create($this->modelData);
+                        ? $this->repository->create($this->modelData)
+                        : $this->repository->update($id, $this->modelData);
         $this->result = $this->model;
 
         return $this;
@@ -70,9 +75,11 @@ abstract class BaseService implements BaseServiceInterface
         return $this->result;
     }
 
-    public function findById(int $id){
+    public function findById(int $id)
+    {
         $this->model = $this->repository->findById($id, $this->with);
         $this->result = $this->model;
+
         return $this->getResult();
     }
 }

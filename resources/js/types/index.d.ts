@@ -36,16 +36,19 @@ export interface SharedData {
     [key: string]: unknown;
 }
 
-export interface User {
+export interface User extends IDateTime{
     id: number;
     name: string;
     email: string;
     avatar?: string;
     email_verified_at: string | null;
     two_factor_enabled?: boolean;
+    [key: string]: unknown; // This allows for additional properties...
+}
+
+export interface IDateTime{
     created_at: string;
     updated_at: string;
-    [key: string]: unknown; // This allows for additional properties...
 }
 
 export interface PageConfig{
