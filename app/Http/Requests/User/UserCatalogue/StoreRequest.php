@@ -24,7 +24,6 @@ class StoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        Log::info('StoreRequest validation rules', ['request_data' => $this->all()]);
         return [
             'name' => "required|string",
             'canonical' => "required|string|unique:user_catalogues",
@@ -34,7 +33,6 @@ class StoreRequest extends FormRequest
 
     protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
     {
-        Log::info('StoreRequest validation failed', ['errors' => $validator->errors()->all()]);
         parent::failedValidation($validator);
     }
     public function attributes()

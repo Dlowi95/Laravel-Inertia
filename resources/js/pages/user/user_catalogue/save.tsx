@@ -61,6 +61,10 @@ export default function UserCatalogueSave({record}: UserCatalogueSaveProps) {
                         </div>
                         <div className="col-span-7">
                             <Form
+                                options={{
+                                    preserveScroll: true,
+                                    preserveState: false
+                                }}
                                 action={
                                     isEdit ? user_catalogue.update(record.id) : user_catalogue.store()
                                 }
