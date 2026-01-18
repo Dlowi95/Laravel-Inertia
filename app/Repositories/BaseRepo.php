@@ -36,4 +36,13 @@ class BaseRepo
     public function findById(int $id, array $with = [], array $column = ['*']){
         return $this->model->select($column)->with($with)->findOrFail($id);
     }
+    public function pagination(array $specs = []){
+        return $this->model
+        ->simpleFilter($specs['filter']['simple'] ?? [])
+        ->when(
+            $specs['all'],
+            fn($q) => $q->get(),
+            fn($q) => $q->paginate($specs['perpage'])
+        );
+    }
 }

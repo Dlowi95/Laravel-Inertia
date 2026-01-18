@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Http\Resources\User\UserCatalogueResource;
+use Illuminate\Http\Request;
 
 class UserCatalogueController extends BaseController
 {
@@ -21,8 +22,9 @@ class UserCatalogueController extends BaseController
         $this->service = $service;
     }
 
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $response = $this->service->paginate($request);
         return Inertia::render('user/user_catalogue/index');
     }
 

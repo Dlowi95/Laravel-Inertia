@@ -7,22 +7,22 @@ use App\Traits\HasTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Traits\HasSpecBuilder;
 
 abstract class BaseService implements BaseServiceInterface
 {
-    use HasTransaction;
+    use HasTransaction, HasSpecBuilder;
 
     protected $repository;
-
     protected $request;
-
     protected $modelData;
-
     protected $model;
-
     protected $result;
-
     protected $with = [];
+
+    protected $perpage = 20;
+    protected $simpleFilter = ['publish'];
+
 
     public function __construct(
         $repository
@@ -82,4 +82,14 @@ abstract class BaseService implements BaseServiceInterface
 
         return $this->getResult();
     }
+
+    public function paginate(Request $request)
+    {
+        $this->setRequest($request);
+        $specifications = $this->specifications();
+        $this->result = $this->repository->pagination($specifications);
+        dd($this->result);
+        return $this->getResult();
+    }
+
 }

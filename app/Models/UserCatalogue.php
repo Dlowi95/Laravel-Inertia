@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\HasQuery;
 
 class UserCatalogue extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasQuery;
 
     protected $fillable = [
         'name',
