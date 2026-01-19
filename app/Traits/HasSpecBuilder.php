@@ -19,7 +19,12 @@ trait HasSpecBuilder {
             'all' => $this->request->input('type') === 'all',
             'perpage' => $this->request->input('perpage') ?? $this->perpage,
             'filter' => [
-                'simple' => $this->build($this->simpleFilter)
+                'simple' => $this->build($this->simpleFilter),
+                'keyword' => [
+                    'q' => $this->request->input('keyword'),
+                    'fields' => $this->searchFields,
+                    'isMultipleLanguage' => $this->isMultipleLanguage ?? false
+                ]
             ]
         ];
     }

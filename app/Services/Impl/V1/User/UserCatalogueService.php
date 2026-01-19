@@ -9,7 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class UserCatalogueService extends BaseService implements UserCatalogueServiceInterface{
     protected $repository;
+
     protected $with = ['users', 'creators'];
+    protected $simpleFilter = ['id', 'publish'];
+    protected $searchFields = ['name', 'canonical', 'description'];
+
 
     public function __construct(
         UserCatalogueRepo $repository

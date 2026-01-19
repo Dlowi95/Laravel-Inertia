@@ -39,10 +39,12 @@ class BaseRepo
     public function pagination(array $specs = []){
         return $this->model
         ->simpleFilter($specs['filter']['simple'] ?? [])
+        ->keyword($specs['filter']['keyword'] ?? [])
         ->when(
             $specs['all'],
             fn($q) => $q->get(),
             fn($q) => $q->paginate($specs['perpage'])
+            //fn($q) => $q->toSql()
         );
     }
 }

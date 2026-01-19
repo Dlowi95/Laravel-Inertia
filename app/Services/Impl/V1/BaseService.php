@@ -22,7 +22,7 @@ abstract class BaseService implements BaseServiceInterface
 
     protected $perpage = 20;
     protected $simpleFilter = ['publish'];
-
+    protected $searchFields = ['name'];
 
     public function __construct(
         $repository
