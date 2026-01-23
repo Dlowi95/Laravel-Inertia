@@ -11,7 +11,7 @@ class UserCatalogueService extends BaseService implements UserCatalogueServiceIn
     protected $repository;
 
     protected $with = ['users', 'creators'];
-    protected $simpleFilter = ['id', 'publish'];
+    protected $simpleFilter = ['publish'];
     protected $searchFields = ['name', 'canonical', 'description'];
 
 

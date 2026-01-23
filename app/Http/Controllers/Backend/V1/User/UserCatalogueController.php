@@ -24,8 +24,10 @@ class UserCatalogueController extends BaseController
 
     public function index(Request $request): Response
     {
-        $response = $this->service->paginate($request);
-        return Inertia::render('user/user_catalogue/index');
+        $records = $this->service->paginate($request);
+        return Inertia::render('user/user_catalogue/index',[
+            'records' => $records
+        ]);
     }
 
     public function create(): Response

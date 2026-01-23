@@ -39,6 +39,8 @@ class BaseRepo
     public function pagination(array $specs = []){
         return $this->model
         ->simpleFilter($specs['filter']['simple'] ?? [])
+        ->complexFilter($specs['filter']['complex'] ?? [])
+        ->dateFilter($specs['filter']['date'] ?? [])
         ->keyword($specs['filter']['keyword'] ?? [])
         ->when(
             $specs['all'],

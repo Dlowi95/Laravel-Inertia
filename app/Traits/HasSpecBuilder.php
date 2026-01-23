@@ -24,7 +24,9 @@ trait HasSpecBuilder {
                     'q' => $this->request->input('keyword'),
                     'fields' => $this->searchFields,
                     'isMultipleLanguage' => $this->isMultipleLanguage ?? false
-                ]
+                ],
+                'complex' => $this->build($this->complexFilter),
+                'date' => $this->build($this->dateFilter),
             ]
         ];
     }

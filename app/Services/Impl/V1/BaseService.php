@@ -22,6 +22,8 @@ abstract class BaseService implements BaseServiceInterface
 
     protected $perpage = 20;
     protected $simpleFilter = ['publish'];
+    protected $complexFilter = ['id'];
+    protected $dateFilter = ['created_at', 'updated_at'];
     protected $searchFields = ['name'];
 
     public function __construct(
