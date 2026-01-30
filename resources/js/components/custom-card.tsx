@@ -24,7 +24,7 @@ const CustomCard = ({
         <Card className="relative rounded-[5px] overflow-hidden pt-[20px]">
             {isShowHeader && 
                 <CardHeader className="border-b">
-                    <CardTitle>{title}</CardTitle>
+                    <CardTitle className="uppercase" >{title}</CardTitle>
                     <CardDescription className="pb-[20px]">{description}</CardDescription>
                 </CardHeader>
             }

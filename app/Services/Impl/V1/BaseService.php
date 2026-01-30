@@ -90,7 +90,6 @@ abstract class BaseService implements BaseServiceInterface
         $this->setRequest($request);
         $specifications = $this->specifications();
         $this->result = $this->repository->pagination($specifications);
-        dd($this->result);
         return $this->getResult();
     }
 

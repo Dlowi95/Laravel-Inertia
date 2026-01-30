@@ -53,5 +53,20 @@ export interface IDateTime{
 }
 
 export interface PageConfig{
+    module?: string;
     heading: string;
+    cardHeading?: string
+    cardDescription?: string;
+    filters?: IFilter[]
+}
+
+export interface ISelectOptionItem {
+    label: string,
+    value: string
+}
+export interface IFilter {
+    key: string,
+    placeholder: string,
+    defaultValue: string,
+    options: ISelectOptionItem[]
 }
