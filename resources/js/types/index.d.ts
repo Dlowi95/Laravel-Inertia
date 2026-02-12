@@ -68,5 +68,6 @@ export interface IFilter {
     key: string,
     placeholder: string,
     defaultValue: string,
-    options: ISelectOptionItem[]
+    options: ISelectOptionItem[],
+    className?: string
 }

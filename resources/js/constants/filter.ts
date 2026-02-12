@@ -21,7 +21,8 @@ export const filter: IFilter[] = [
         options: ['20', '30', '40', '50', '60', '80', '100'].map(item => ({
             label: `${item} bản ghi`,
             value: item
-        }))
+        })),
+        className: 'w-[180px]'
     },
     {
         key: 'publish',

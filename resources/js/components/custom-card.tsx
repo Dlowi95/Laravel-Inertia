@@ -21,14 +21,14 @@ const CustomCard = ({
     footerChildren
 }: CustomCardProps) => {
     return (
-        <Card className="relative rounded-[5px] overflow-hidden pt-[20px]">
+        <Card className="relative gap-4 rounded-[5px] overflow-hidden pt-[20px]">
             {isShowHeader && 
                 <CardHeader className="border-b">
                     <CardTitle className="uppercase" >{title}</CardTitle>
                     <CardDescription className="pb-[20px]">{description}</CardDescription>
                 </CardHeader>
             }
-            <CardContent className={` ${height ?? 'h-[48]'}`}>
+            <CardContent className={` ${height ?? 'h-[48]'} px-[10px]`}>
                 {children}
             </CardContent>
             {isShowFooter &&
