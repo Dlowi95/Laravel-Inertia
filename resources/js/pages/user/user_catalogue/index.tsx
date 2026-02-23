@@ -28,7 +28,7 @@ const pageConfig: PageConfig={
     filters: [...filter]
 }
 
-export default function Dashboard() {
+export default function UserCatalogueIndex() {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={pageConfig.heading} />
